@@ -1,0 +1,74 @@
+#include<iostream>
+#include<vector>
+#include"stdafx.h"
+
+using namespace std;
+
+vector<int> Find(int , vector<int> , vector<int> , vector<int> );
+vector<int> sortVector(vector<int> );
+
+int main() {
+	int num = 0;
+	int time = 0;
+	vector<int> NO;
+	vector<int> IN;
+	vector<int> OUT;
+	cin >> num;
+	cin >> time;
+	for (int i = 0; i < num; i++) {
+		int no;
+		int in;
+		int out;
+		cin >> no;
+		cin >> in;
+		cin >> out;
+		NO.push_back(no);
+		IN.push_back(in);
+		OUT.push_back(out);
+	}
+
+	/*int result = Find(time, NO, IN, OUT);
+	if (-1 == result)
+		cout << "null" << endl;
+	else
+		cout << result;
+		*/
+
+	vector<int> result = Find(time, NO, IN, OUT);
+	if (result.size())
+		for (vector<int>::iterator it = result.begin(); it != result.end(); it++)
+			cout << *it << endl;
+	else
+		cout << "null" << endl;
+
+	return 0;
+}
+
+
+
+vector<int> Find(int time, vector<int> NO, vector<int> IN, vector<int> OUT) {
+	int len = NO.size();
+	int count = 0;
+	vector<int> result;
+	for (vector<int>::iterator it = IN.begin(); it != IN.end(); it++,count++) {
+		if (time >= *it && time <= OUT[count])
+			result.push_back(NO[count]);
+	}
+
+	result = sortVector(result);
+	return result;
+}
+
+
+vector<int> sortVector(vector<int> result) {
+	for (vector<int>::iterator it1 = result.begin(); it1 != result.end(); it1++) {
+		for (vector<int>::iterator it2 = result.begin(); it2 != result.end(); it2++) {
+			if (*it2 > *it1) {
+				int temp = *it1;
+				*it1 = *it2;
+				*it2 = temp;
+			}
+		}
+	}
+	return result;
+}
