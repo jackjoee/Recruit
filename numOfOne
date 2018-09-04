@@ -1,0 +1,21 @@
+#include<iostream>
+#include"stdafx.h"
+
+using namespace std;
+int numOfOne(long);
+
+int main() {
+	long num = 0;
+	cin >> num;
+	cout << numOfOne(num) << endl;
+	return 0;
+}
+
+int numOfOne(long num) {
+	int count = 0;
+	while (num) {
+		count++;
+		num = (num & (num - 1));
+	}
+	return count;
+}
