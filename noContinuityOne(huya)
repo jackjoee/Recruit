@@ -1,0 +1,51 @@
+#include<iostream>
+
+using namespace std;
+int countOfNum(long);
+
+
+/**
+ **
+ ** 只ac 83.33
+ **
+ **/
+int main() {
+	long num;
+	cin >> num;
+	cout << countOfNum(num);
+	return 0;
+}
+
+int countOfNum(long num) {
+	int count = 0;
+	int countOne = 0;
+	int flag = 1;
+	for (int i = 0; i <= num; i++) {
+		int num = i;
+		while (num >= 0) {
+			if (countOne == 3) {
+				flag = 0;
+				break;
+			}
+			else {
+				if (num == 0)
+					break;
+				if ((num % 2) == 1)
+					countOne++;
+				else if ((num % 2) == 0)
+					countOne = 0;
+				num = num / 2;
+			}
+		}
+		if (flag == 1) {
+			count++;
+			countOne = 0;
+		}
+		else {
+			countOne = 0;
+			flag = 1;
+		}
+	}
+
+	return count;
+}
