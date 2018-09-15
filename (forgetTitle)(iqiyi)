@@ -1,0 +1,52 @@
+#include"stdafx.h"
+using namespace std;
+
+int rankOfFood(vector<int> &, vector<char> &, vector<int> &);
+
+int N, M, P;
+int main() {
+
+	//cout << "4";
+
+	cin >> N >> M >> P;             // 爱奇艺第二题笔试,忘记题目了，反正就是对一个数组加加减减然后找某个值的排名
+	vector<int> Ai(N);
+	vector<char> v1(M);
+	vector<int> v2(M);
+	for (int i = 0; i < N; i++)
+		cin >> Ai[i];
+	for (int i = 0; i < M; i++) {
+		cin >> v1[i];
+		cin >> v2[i];
+	}
+
+	cout << rankOfFood(Ai, v1, v2);
+
+	return 0;
+}
+
+int rankOfFood(vector<int> &Ai, vector<char> &v1, vector<int> &v2) {
+	int count = 0;
+	vector<int> res;
+	for (int i = 0; i < M; i++) {
+		if (v1[i] == 'B') {
+			Ai[v2[i] - 1]--;
+		}
+		if (v1[i] == 'A') {
+			Ai[v2[i] - 1]++;
+		}
+	}
+	res = Ai;
+
+	int a = Ai[P - 1];
+	for (int i = 0; i < N; i++) {
+		if (a < Ai[i])
+			count++;
+	}
+
+	//sort(res.begin(),res.end());
+	/*for (int i = N - 1; i > 0; i--) {
+	if (Ai[P - 1] == res[i])
+	count++;
+	}*/
+	return ++count;
+}
