@@ -1,0 +1,48 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+void b(vector<vector<int> >);
+
+int main() {
+	int t = 0;
+	cin >> t;                                  // 给出三个数字，a，b，c，可以选择若干个数字，但是这些数字必须是A的倍数，并且至少需要选择一个数字。
+	vector<vector<int> > v(t,vector<int>(3));           // 问是否存在一种选择方案使得这些数字的和对B取余的结果为C，存在输出"YES",否则输出"NO"
+	for (int i = 0; i < t; i++) {
+		for (int j = 0; j < 3; j++) {
+			cin >> v[i][j];
+		}
+	}
+
+	b(v);
+
+	return 0;
+}
+
+void b(vector<vector<int> > v) {
+	int a;
+	int b;
+	int c;
+	for (int i = 0; i < v.size(); i++) {
+		int flag = 1;
+		a = v[i][0];
+		b = v[i][1];
+		c = v[i][2];
+		if ((a % b == 0) && c != 0)
+			cout << "NO" << endl;
+		else {
+			for (int j = 0; j < 100; j++) {
+				if ((b * j + c) % a == 0) {
+					cout << "YES" << endl;
+					flag = 0;
+					break;
+				}
+			}
+			if (flag)
+				cout << "NO" << endl;
+		}
+	}
+
+
+}
