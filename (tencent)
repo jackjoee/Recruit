@@ -9,7 +9,7 @@ int main() {
 	int t = 0;
 	cin >> t;                                  // 给出三个数字，a，b，c，可以选择若干个数字，但是这些数字必须是A的倍数，并且至少需要选择一个数字。
 	vector<vector<int> > v(t,vector<int>(3));           // 问是否存在一种选择方案使得这些数字的和对B取余的结果为C，存在输出"YES",否则输出"NO"
-	for (int i = 0; i < t; i++) {
+	for (int i = 0; i < t; i++) {              // 100% ac
 		for (int j = 0; j < 3; j++) {
 			cin >> v[i][j];
 		}
