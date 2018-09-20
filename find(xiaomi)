@@ -1,0 +1,79 @@
+#include"stdafx.h"
+
+using namespace std;
+
+void outputStr(vector<string>);
+
+int main() {
+	vector<string> v;
+	string str;
+	while (1) {
+		cin >> str;
+		if (str == "END")
+			break;
+		else
+			v.push_back(str);
+	}
+	outputStr(v);
+	//cout << "None";
+	return 0;
+}
+
+
+void outputStr(vector<string> v) {
+	if (v.size() == 0) {
+		cout << "None" << endl;
+		return;
+	}
+	int len = v.size();
+	vector<int> v1;
+	vector<string> v2;
+	int n, m, num;
+	for (int i = 0; i < len; i++) {              // 输入形式为10#15，前面的数字代表进制，后面为数字，即4#32转换成十进制为14，
+		num = 0;                                   // 找出输入中和其他数值都不一样的数，全部输出出来。输出形式和输入一样
+		//cout << v[i] << endl;
+		int count = 0;
+		string str1, str2;
+		int flag = 0;
+		for (int j = 0; j < v[i].size(); j++) {
+			if (v[i][j] == '#') {
+				flag = 1;
+				continue;
+			}
+			if (!flag) {
+				str1 += v[i][j];            // 将string左右两边的值分别获取并赋予str1和str2
+			}
+			else {
+				str2 += v[i][j];
+			}
+		}
+		n = atoi(str1.c_str());
+		m = atoi(str2.c_str());           // 将string转换成int 若是不加c_str()，则是char[]转换成int
+		while (m > 0) {
+			num += (m % 10) * pow(n,count);
+			m = m / 10;
+			count++;
+		}
+		v1.push_back(num);
+	}
+
+	for (int i = 0; i < v1.size(); i++) {
+		int flag = 0;
+		for (int j = 0; j < v1.size(); j++) {
+			if (j == i)
+				continue;
+			if (v1[i] == v1[j])
+				flag = 1;
+		}
+		if (!flag) {
+			v2.push_back(v[i]);
+		}
+	}
+	if (v2.size() > 0)
+		for (int i = 0; i < v2.size(); i++)
+			cout << v2[i] << endl;
+	else{
+		cout << "None";
+	}
+	//cout << str1 << " " << str2;
+}
