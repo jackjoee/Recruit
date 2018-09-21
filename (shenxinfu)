@@ -1,0 +1,81 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+void priceOfFood(vector<int>, vector<int>, vector<int>, vector<int>, vector<int>, vector<int>);
+
+/**
+***
+*** 忘记了水果和面点的价格，但保存了两天的采购的记录，第一天采购了a1份水果，b1份面点，总花费v1元，第二天采购了a2份水果，b2份面点，总花费v2元
+*** 输入正整数T，表示有T组测试数据
+*** 接下来T行，每行六个证书，a1，b1，v1，a2，b2，v2
+*** 若是存在多个解或者解为小数则输出UNKNOWN
+*** 例如：
+*** 输入
+*** 3
+*** 1 2 3 4 5 9
+*** 1 2 3 4 5 6
+*** 1 2 3 3 6 9
+*** 输出
+*** 1 1
+*** UNKNOWN
+*** UNKNOWN
+***
+**/
+
+// ac 0 ，报错为发生浮点错误，比如遇到了除以0的情况
+int main() {
+	int T;
+	cin >> T;
+	vector<int> a1(T);
+	vector<int> b1(T);
+	vector<int> v1(T);
+	vector<int> a2(T);
+	vector<int> b2(T);
+	vector<int> v2(T);
+	for (int i = 0; i < T; i++) {
+		cin >> a1[i];
+		cin >> b1[i];
+		cin >> v1[i];
+		cin >> a2[i];
+		cin >> b2[i];
+		cin >> v2[i];
+	}
+	priceOfFood(a1, b1, v1, a2, b2, v2);
+	return 0;
+}
+
+void priceOfFood(vector<int>a1, vector<int>b1, vector<int>v1, vector<int>a2, vector<int>b2, vector<int>v2) {
+	int fruit = 0;
+	int bread = 0;
+	int price = 0;
+	int T = a1.size();
+	for (int i = 0; i < T; i++) {            // 将数学公式转换成程序执行
+        if(a1[i] == 0 || b1[i] == 0 || v1[i] == 0 || a2[i] == 0 || b2[i] == 0 || b2[i] == 0){
+            cout << "UNKNOWN" << endl;
+        }
+		else if ((a2[i] % a1[i] == 0 || a1[i] % a2[i] == 0) && (b2[i] % b1[i] == 0 || b1[i] % b2[i] == 0) && (v2[i] % v1[i] == 0 || v1[i] % v2[i] == 0))
+			cout << "UNKNOWN" << endl;
+		else {
+			price = v2[i] - (v1[i] * (a2[i] / a1[i]));
+			if (price % (b2[i] - (b1[i] * (a2[i] / a1[i]))) != 0) {
+				cout << "UNKNOWN" << endl;
+				continue;
+			}
+			else {
+				bread = price / (b2[i] - (b1[i] * (a2[i] / a1[i])));
+				if ((v1[i] - b1[i] * bread) % a1[i] != 0) {
+					cout << "UNKNOWN" << endl;
+					continue;
+				}
+				else
+					fruit = (v1[i] - b1[i] * bread) / a1[i];
+				if (bread >= 0 && fruit >= 0)
+					cout << bread << " " << fruit << endl;
+				else
+					cout << "UNKNOWN" << endl;
+			}
+		}
+	}
+}
